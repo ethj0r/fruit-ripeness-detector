@@ -13,7 +13,7 @@ IMG_SIZE = (180, 180)
 # Transformer untuk webcam
 class BananaDetector(VideoTransformerBase):
     def transform(self, frame):
-        img = frame.to_ndarray(format="bgr24") 
+        img = frame.to_ndarray(format="bgr24")  # Ambil frame dari webcam
         resized = cv2.resize(img, IMG_SIZE)
         normalized = resized / 255.0
         input_tensor = tf.expand_dims(normalized, axis=0)
@@ -32,5 +32,6 @@ class BananaDetector(VideoTransformerBase):
 # Streamlit UI
 st.title("🍌 Deteksi Kematangan Pisang dari Webcam")
 st.caption("Arahkan pisang ke kamera. Model akan memprediksi secara real-time.")
+st.write("🧪 Python version:", sys.version)
 
 webrtc_streamer(key="banana", video_transformer_factory=BananaDetector)
